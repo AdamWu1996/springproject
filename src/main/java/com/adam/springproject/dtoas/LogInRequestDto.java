@@ -1,18 +1,18 @@
 package com.adam.springproject.dtoas;
 
 public class LogInRequestDto {
-    private String account;
+    private String email;
     private String password;
 
     public LogInRequestDto() {
     }
 
-    public String getAccount() {
-        return account;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

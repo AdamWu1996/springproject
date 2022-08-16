@@ -1,15 +1,24 @@
 package com.adam.springproject.dtoas;
 
+import com.adam.springproject.repositories.entites.User;
+
+import javax.persistence.Column;
+
 public class SignUpResponseDto {
     private int id;
-    private String account;
-
+    private String email;
+    private String name;
+    private String gender;
+    private String message;
     public SignUpResponseDto() {
     }
 
-    public SignUpResponseDto(int id, String account) {
+    public SignUpResponseDto(int id, User user, String message) {
         this.id = id;
-        this.account = account;
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.gender = user.getGender();
+        this.message = message;
     }
 
     public int getId() {
@@ -20,11 +29,35 @@ public class SignUpResponseDto {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

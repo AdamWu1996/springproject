@@ -1,41 +1,37 @@
 package com.adam.springproject.dtoas;
 
+import com.adam.springproject.repositories.entites.User;
+
 public class LoginResponseDto {
     private int id;
-    private String account;
+    private String email;
 
-    private String msg;
+    private String name;
+    private String gender;
 
     public LoginResponseDto() {
     }
 
-    public LoginResponseDto(int id, String account, String msg) {
-        this.id = id;
-        this.account = account;
-        this.msg = msg;
+    public LoginResponseDto(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.gender = user.getGender();
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
-    public String getAccount() {
-        return account;
+    public String getName() {
+        return name;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public String getGender() {
+        return gender;
     }
 }
