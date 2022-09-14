@@ -7,7 +7,7 @@ public class LoginResponseDto {
     private String email;
 
     private String name;
-    private String gender;
+    private User.Gender gender;
 
     public LoginResponseDto() {
     }
@@ -31,7 +31,7 @@ public class LoginResponseDto {
         return name;
     }
 
-    public String getGender() {
+    public User.Gender getGender() {
         return gender;
     }
 }
