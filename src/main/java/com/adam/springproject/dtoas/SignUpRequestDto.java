@@ -1,19 +1,37 @@
 package com.adam.springproject.dtoas;
 
+import com.adam.springproject.repositories.entites.User;
+import com.adam.springproject.services.EnumNamePattern;
+
 import javax.persistence.Column;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //Data transfer object 數據傳輸物件
 public class SignUpRequestDto {
+
+    @Size(min = 4, max = 18)
     private String name;
+
     private Integer age;
-    private String gender;
+
+    @EnumNamePattern(regexp = "male|female")
+    private User.Gender gender;
+
+    @Email(message = "email format error")
     private String email;
+    @NotNull(message = "password empty")
+    @Size(min = 10, max = 20)
     private String password;
 
     public SignUpRequestDto() {
     }
 
-    public SignUpRequestDto(String name, Integer age, String gender, String email, String password) {
+    public SignUpRequestDto(String name, Integer age, User.Gender gender, String email, String password) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -37,11 +55,11 @@ public class SignUpRequestDto {
         this.age = age;
     }
 
-    public String getGender() {
+    public User.Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(User.Gender gender) {
         this.gender = gender;
     }
 

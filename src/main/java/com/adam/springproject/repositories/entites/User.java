@@ -1,23 +1,24 @@
 package com.adam.springproject.repositories.entites;
 
 import com.adam.springproject.dtoas.SignUpRequestDto;
+import com.adam.springproject.services.EnumNamePattern;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "`user`")
 public class User {
     @Id //PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自動增加
-    private int id;
-    @Column(length = 18)
+    private Integer id;
     private String name;
     private Integer age;
-    private String gender;
-    @Column(unique = true)
-
+    private Gender gender;
+    @Column(name = "EMAIL", unique = true)
     private String email;
-    @Column(length = 20)
     private String password;
 
     public User() {
@@ -29,6 +30,10 @@ public class User {
         this.gender = signUpRequestDto.getGender();
         this.email = signUpRequestDto.getEmail();
         this.password = signUpRequestDto.getPassword();
+    }
+
+    public enum Gender {
+        male, female
     }
 
     public Integer getId() {
@@ -55,11 +60,11 @@ public class User {
         this.age = age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

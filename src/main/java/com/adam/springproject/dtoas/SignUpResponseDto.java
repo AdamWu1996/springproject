@@ -8,7 +8,7 @@ public class SignUpResponseDto {
     private int id;
     private String email;
     private String name;
-    private String gender;
+    private User.Gender gender;
     private String message;
     public SignUpResponseDto() {
     }
@@ -45,11 +45,11 @@ public class SignUpResponseDto {
         this.name = name;
     }
 
-    public String getGender() {
+    public User.Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(User.Gender gender) {
         this.gender = gender;
     }
 
