@@ -64,12 +64,12 @@ public class UserService {
     }
 
     public Object signUp(SignUpRequestDto signUpRequestDto) {
-        //return validate(new User(signUpRequestDto));
-        User user = new User(signUpRequestDto);
         try {
-            return new SignUpResponseDto(userDao.save(user).getId(), user, "Register successfully");
+            User user = new User(signUpRequestDto);
+            userDao.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Register successfully");
         } catch (ConstraintViolationException e) {
-            return new SignUpResponseDto(-1, null, e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Information missing");
         }
     }
 
@@ -80,18 +80,18 @@ public class UserService {
             user = Optional.empty();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("login failed");
         }
-        return ResponseEntity.ok(new LoginResponseDto(user.get()));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login successfully");
     }
 
     public Object sendMsg(SendMsgRequestDto sendMsgRequestDto) {
         Date now = new Date();
         long diff = now.getTime() - lastMessageTime.getTime();
         if (TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) < 5) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Messages are sent every five seconds ");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Messages are sent every five seconds ");
         }
         lastMessageTime = now;
         if (!user.isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please login");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please login");
         }
         System.out.println(user.get().getName() + ":" + sendMsgRequestDto.getMessage());
         return ResponseEntity.ok(new SendMsgResponseDto(sendMsgRequestDto.getMessage()));

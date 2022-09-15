@@ -1,17 +1,14 @@
 package com.adam.springproject.controllers;
 
-import com.adam.springproject.MessageTimer;
 import com.adam.springproject.dtoas.LogInRequestDto;
 import com.adam.springproject.dtoas.SendMsgRequestDto;
 import com.adam.springproject.dtoas.SignUpRequestDto;
 import com.adam.springproject.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Collections;
 
 //Http Service 的進入點
 //@Controller
@@ -21,7 +18,7 @@ import java.util.Collections;
 public class UserController {
 
     private final UserService userService;
-    private MessageTimer messageTimer = new MessageTimer();
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -34,25 +31,12 @@ public class UserController {
         com.adam.springproject.controllers.UserController#hello2() mapped.
     */
 
-    @GetMapping(value = "/hello")
-    //回應 hello 這個函數!
-    //@ResponseBody
-    public String hello() {
-        return "Hello!";
-    }
-
-    @GetMapping(value = "/hello2")
-    //@ResponseBody
-    public Object hello2() {
-        return Collections.singletonMap("key", "Hello!2");
-    }
-
     @PostMapping(value = "/signup")
     public Object signUp(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
         return userService.signUp(signUpRequestDto);
     }
 
-    @PostMapping(value = "/login")
+    @GetMapping(value = "/login")
     public Object signIn(@RequestBody LogInRequestDto logInRequestDto) {
         return userService.login(logInRequestDto);
     }
